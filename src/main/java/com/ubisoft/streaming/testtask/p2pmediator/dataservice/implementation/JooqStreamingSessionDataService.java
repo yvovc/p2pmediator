@@ -25,6 +25,7 @@ public class JooqStreamingSessionDataService implements IStreamingSessionDataSer
         dslContext.insertInto(STREAMING_SESSION)
                 .set(STREAMING_SESSION.HOST_ID, peer.getId())
                 .set(STREAMING_SESSION.VIDEO_GAME_ID, game.getId())
+                .set(STREAMING_SESSION.STREAMING_SESSION_STATUS, StreamingSessionStatus.NEW)
                 .execute();
     }
 
