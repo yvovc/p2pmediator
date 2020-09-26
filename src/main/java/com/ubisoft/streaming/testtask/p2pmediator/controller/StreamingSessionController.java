@@ -1,7 +1,7 @@
 package com.ubisoft.streaming.testtask.p2pmediator.controller;
 
 import com.ubisoft.streaming.testtask.p2pmediator.auth.Peer;
-import com.ubisoft.streaming.testtask.p2pmediator.dto.Game;
+import com.ubisoft.streaming.testtask.p2pmediator.dto.VideoGame;
 import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSession;
 import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionStatus;
 import com.ubisoft.streaming.testtask.p2pmediator.service.StreamingSessionService;
@@ -29,7 +29,7 @@ public class StreamingSessionController {
 
     @PostMapping
     public void createStreamingSession(@AuthenticationPrincipal final Peer peer,
-                                       @RequestBody final Game gameToStream) {
-        streamingSessionService.createStreamingSession(peer, gameToStream);
+                                       @RequestBody final VideoGame videoGameToStream) {
+        streamingSessionService.createStreamingSession(peer, videoGameToStream);
     }
 }
