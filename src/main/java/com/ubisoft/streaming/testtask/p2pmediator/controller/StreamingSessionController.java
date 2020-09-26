@@ -23,13 +23,13 @@ public class StreamingSessionController {
 
     @GetMapping
     public List<StreamingSession> getStreamingSessions(@AuthenticationPrincipal final Peer peer,
-                                                       @RequestParam final StreamingSessionStatus status) {
+                                                       @RequestParam(required = false) final StreamingSessionStatus status) {
         return streamingSessionService.getStreamingSessions(peer, status);
     }
 
     @PostMapping
     public void createStreamingSession(@AuthenticationPrincipal final Peer peer,
-                                       final Game gameToStream) {
+                                       @RequestBody final Game gameToStream) {
         streamingSessionService.createStreamingSession(peer, gameToStream);
     }
 }
