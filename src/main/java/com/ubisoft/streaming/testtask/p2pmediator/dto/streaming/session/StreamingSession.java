@@ -3,9 +3,11 @@ package com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session;
 import java.util.UUID;
 
 public class StreamingSession {
+    public final static String VIDEO_GAME_NAME_FIELD_NAME = "videoGameName";
+
     private Integer id;
     private UUID hostId;
-    private Integer gameId;
+    private String videoGameName;
     private StreamingSessionStatus streamingSessionStatus;
 
     public Integer getId() {
@@ -24,12 +26,12 @@ public class StreamingSession {
         this.hostId = hostId;
     }
 
-    public Integer getGameId() {
-        return gameId;
+    public String getVideoGameName() {
+        return videoGameName;
     }
 
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
+    public void setVideoGameName(String videoGameName) {
+        this.videoGameName = videoGameName;
     }
 
     public StreamingSessionStatus getStreamingSessionStatus() {
