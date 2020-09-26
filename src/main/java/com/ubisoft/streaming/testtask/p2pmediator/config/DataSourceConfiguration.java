@@ -5,6 +5,7 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,14 +13,22 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 
 import javax.sql.DataSource;
+import java.io.File;
 
 @Configuration
 @ComponentScan
 public class DataSourceConfiguration { //TODO check throwing exc
+    @Value("${db.embedded.postgres.directory}")
+    public String embeddedPostgresDataDirectory;
+
     @Bean
     @Primary
     public DataSource inMemoryDS() throws Exception {
         return EmbeddedPostgres.builder()
+                .setCleanDataDirectory(true)
+                .setDataDirectory(embeddedPostgresDataDirectory + "/pg_data_dir")
+                .setOverrideWorkingDirectory(new File(embeddedPostgresDataDirectory))
+                .setPort(65083)
                 .start().getPostgresDatabase();
     }
 

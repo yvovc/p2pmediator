@@ -5,3 +5,7 @@ services:
   streaming-session:
     data-service:
       type: JooqDSL
+db:
+  embedded:
+    postgres:
+      directory: /Users/yvovc/Downloads/p2pmediator/pgwd
