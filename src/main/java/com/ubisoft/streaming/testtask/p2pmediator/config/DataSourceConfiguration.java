@@ -27,25 +27,27 @@ public class DataSourceConfiguration { //TODO check throwing exc
     @Bean
     @Primary
     public DataSource inMemoryDS() throws Exception {
-        return EmbeddedPostgres.builder()
-                .setCleanDataDirectory(true)
-                .setDataDirectory(embeddedPostgresDataDirectory + "/pg_data_dir")
-                .setOverrideWorkingDirectory(new File(embeddedPostgresDataDirectory))
-                .setPort(embeddedPostgresPort)
-                .start().getPostgresDatabase();
+        final EmbeddedPostgres postgresManager =
+                EmbeddedPostgres.builder()
+                        .setCleanDataDirectory(true)
+                        .setDataDirectory(embeddedPostgresDataDirectory + "/pg_data_dir")
+                        .setOverrideWorkingDirectory(new File(embeddedPostgresDataDirectory))
+                        .setPort(embeddedPostgresPort)
+                        .start();
+        return postgresManager.getPostgresDatabase();
     }
 
     @Bean
-    public org.jooq.Configuration dslConfiguration() throws Exception {
+    public org.jooq.Configuration dslConfiguration(final DataSource pgDataSource) throws Exception {
         return new DefaultConfiguration()
                 .set(new DataSourceConnectionProvider(
-                        new TransactionAwareDataSourceProxy(inMemoryDS())))
+                        new TransactionAwareDataSourceProxy(pgDataSource)))
                 .set(SQLDialect.POSTGRES);
     }
 
     @Primary
-    public DefaultDSLContext jooqDsl() throws Exception {
-        return new DefaultDSLContext(dslConfiguration());
+    public DefaultDSLContext jooqDsl(final org.jooq.Configuration configuration) throws Exception {
+        return new DefaultDSLContext(configuration);
     }
 
 }
