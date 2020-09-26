@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DatabaseMigrationConfig {
+    private final static String P2P_MEDIATOR_DB_SCHEMA_NAME = "p2pmediatordb";
+
     @Autowired
     DataSource ds;
 
@@ -16,9 +18,9 @@ public class DatabaseMigrationConfig {
     public void migrateWithFlyway() {
         Flyway flyway = Flyway.configure()
                 .dataSource(ds)
-                .schemas("p2pmediatordb")
-                .defaultSchema("p2pmediatordb")
-                .locations("db/migration/**")
+                .schemas(P2P_MEDIATOR_DB_SCHEMA_NAME)
+                .defaultSchema(P2P_MEDIATOR_DB_SCHEMA_NAME)
+                .locations("db/migration", "db/migration/data")
                 .load();
 
         flyway.migrate();
