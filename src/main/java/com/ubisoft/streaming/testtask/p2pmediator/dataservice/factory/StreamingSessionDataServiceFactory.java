@@ -1,7 +1,7 @@
 package com.ubisoft.streaming.testtask.p2pmediator.dataservice.factory;
 
 import com.ubisoft.streaming.testtask.p2pmediator.dataservice.IStreamingSessionDataService;
-import com.ubisoft.streaming.testtask.p2pmediator.dataservice.implementation.StreamingSessionDataService;
+import com.ubisoft.streaming.testtask.p2pmediator.dataservice.implementation.JooqStreamingSessionDataService;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +21,6 @@ public class StreamingSessionDataServiceFactory {
 
     public IStreamingSessionDataService getStreamingSessionDataService(final String dataServiceType) {
         return STREAMING_SESSION_TYPE_DATA_SERVICE_MAP.getOrDefault(
-                dataServiceType, new StreamingSessionDataService(dslContext));
+                dataServiceType, new JooqStreamingSessionDataService(dslContext));
     }
 }
