@@ -9,3 +9,4 @@ db:
   embedded:
     postgres:
       directory: /Users/yvovc/Downloads/p2pmediator/pgwd
+      port: 65083
