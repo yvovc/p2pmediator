@@ -23,8 +23,8 @@ public class StreamingSessionController {
 
     @GetMapping
     public List<StreamingSession> getStreamingSessions(@AuthenticationPrincipal final Peer peer,
-                                                       @RequestParam(required = false) final StreamingSessionStatus status) {
-        return streamingSessionService.getStreamingSessions(peer, status);
+                                                       @RequestParam(required = false) final List<StreamingSessionStatus> statuses) {
+        return streamingSessionService.getStreamingSessions(peer, statuses);
     }
 
     @PostMapping
