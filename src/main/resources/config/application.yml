@@ -10,3 +10,6 @@ db:
     postgres:
       directory: /Users/yvovc/Downloads/p2pmediator/pgwd
       port: 65083
+logging:
+  level:
+    org.springframework.security: DEBUG
