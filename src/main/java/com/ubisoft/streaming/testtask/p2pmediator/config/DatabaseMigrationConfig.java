@@ -18,7 +18,7 @@ public class DatabaseMigrationConfig {
                 .dataSource(ds)
                 .schemas("p2pmediatordb")
                 .defaultSchema("p2pmediatordb")
-                .locations("db/migration/")
+                .locations("db/migration/**")
                 .load();
 
         flyway.migrate();
