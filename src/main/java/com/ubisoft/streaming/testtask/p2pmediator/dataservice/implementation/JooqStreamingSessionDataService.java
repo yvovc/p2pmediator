@@ -10,6 +10,7 @@ import org.jooq.DSLContext;
 import java.util.List;
 
 import static com.ubisoft.streaming.testtask.p2pmediator.p2pmediatordb.Tables.STREAMING_SESSION;
+import static com.ubisoft.streaming.testtask.p2pmediator.p2pmediatordb.Tables.VIDEO_GAME;
 
 public class JooqStreamingSessionDataService implements IStreamingSessionDataService {
     private final DSLContext dslContext;
@@ -29,6 +30,15 @@ public class JooqStreamingSessionDataService implements IStreamingSessionDataSer
 
     @Override
     public List<StreamingSession> getStreamingSessions(final List<StreamingSessionStatus> statuses) {
-        return dslContext.selectFrom(STREAMING_SESSION).fetchInto(StreamingSession.class);
+        return dslContext.select(
+                STREAMING_SESSION.ID,
+                STREAMING_SESSION.HOST_ID,
+                STREAMING_SESSION.STREAMING_SESSION_STATUS,
+                VIDEO_GAME.NAME.as(StreamingSession.VIDEO_GAME_NAME_FIELD_NAME)
+        )
+                .from(STREAMING_SESSION)
+                .join(VIDEO_GAME).on(STREAMING_SESSION.VIDEO_GAME_ID.eq(VIDEO_GAME.ID))
+                .where(STREAMING_SESSION.STREAMING_SESSION_STATUS.in(statuses))
+                .fetchInto(StreamingSession.class);
     }
 }
