@@ -64,6 +64,20 @@ jooq {
                         value = 'QUOTED'
                     }
                 }
+                forcedTypes {
+                        forcedType {
+                            userType = "com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionStatus"
+                            binding = "com.ubisoft.streaming.testtask.p2pmediator.dataservice.implementation.bind.StreamingSessionStatusConverter"
+                            expression = ".*streaming_session_status"
+                            types = "integer"
+                        }
+                    forcedType {
+                        userType = "com.ubisoft.streaming.testtask.p2pmediator.dto.view.request.ViewRequestStatus"
+                        binding = "com.ubisoft.streaming.testtask.p2pmediator.dataservice.implementation.bind.ViewRequestStatusConverter"
+                        expression = ".*view_request_status"
+                        types = "integer"
+                    }
+                }
             }
             generate {
                 relations = true
