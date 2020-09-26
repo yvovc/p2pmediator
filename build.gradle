@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.springframework.session:spring-session-core'
     implementation 'com.opentable.components:otj-pg-embedded:0.13.1'
+    implementation 'com.google.guava:guava:11.0.2'
     jooqRuntime 'org.jooq:jooq-meta-extensions'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
