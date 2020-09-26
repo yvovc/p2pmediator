@@ -26,14 +26,14 @@ CREATE TABLE p2pmediatordb.streaming_session (
     id SERIAL PRIMARY KEY,
     host_id UUID REFERENCES p2pmediatordb.peer(id) ON DELETE CASCADE,
     video_game_id INTEGER REFERENCES p2pmediatordb.video_game(id) ON DELETE CASCADE,
-    status_id INTEGER REFERENCES p2pmediatordb.streaming_session_status(id) ON DELETE CASCADE
+    streaming_session_status INTEGER REFERENCES p2pmediatordb.streaming_session_status(id) ON DELETE CASCADE
 );
 
 CREATE TABLE p2pmediatordb.view_request (
     id SERIAL PRIMARY KEY,
     viewer_id UUID REFERENCES p2pmediatordb.peer(id) ON DELETE CASCADE,
     streaming_session_id INTEGER REFERENCES p2pmediatordb.streaming_session(id) ON DELETE CASCADE,
-    status_id INTEGER REFERENCES p2pmediatordb.view_request_status(id) ON DELETE CASCADE
+    view_request_status INTEGER REFERENCES p2pmediatordb.view_request_status(id) ON DELETE CASCADE
 );
 
 CREATE TABLE p2pmediatordb.streaming_session_endpoint (
