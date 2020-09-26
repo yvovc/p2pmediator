@@ -21,6 +21,9 @@ public class DataSourceConfiguration { //TODO check throwing exc
     @Value("${db.embedded.postgres.directory}")
     public String embeddedPostgresDataDirectory;
 
+    @Value("${db.embedded.postgres.port}")
+    public Integer embeddedPostgresPort;
+
     @Bean
     @Primary
     public DataSource inMemoryDS() throws Exception {
@@ -28,7 +31,7 @@ public class DataSourceConfiguration { //TODO check throwing exc
                 .setCleanDataDirectory(true)
                 .setDataDirectory(embeddedPostgresDataDirectory + "/pg_data_dir")
                 .setOverrideWorkingDirectory(new File(embeddedPostgresDataDirectory))
-                .setPort(65083)
+                .setPort(embeddedPostgresPort)
                 .start().getPostgresDatabase();
     }
 
