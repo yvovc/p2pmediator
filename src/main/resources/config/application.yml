@@ -1,3 +1,7 @@
 spring:
   flyway:
     enabled: false
+services:
+  streaming-session:
+    data-service:
+      type: JooqDSL
