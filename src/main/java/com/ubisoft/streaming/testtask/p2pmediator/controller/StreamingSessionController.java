@@ -37,7 +37,7 @@ public class StreamingSessionController {
     @PutMapping("/{streamingSessionId}/status")
     public StreamingSessionStatus updateStreamingSessionStatus(@AuthenticationPrincipal final Peer peer,
                                                                @PathVariable final Integer streamingSessionId,
-                                                               @RequestBody final StreamingSessionStatus newStatus) {
+                                                               @RequestParam final StreamingSessionStatus newStatus) {
         return streamingSessionService.updateStreamingSessionStatus(peer, streamingSessionId, newStatus);
     }
 
