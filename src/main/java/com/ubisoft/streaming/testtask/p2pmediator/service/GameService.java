@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameService {
     public boolean exists(final VideoGame videoGame) {
-        return false;
+        return true;
     }
 }
