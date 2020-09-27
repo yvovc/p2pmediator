@@ -7,6 +7,7 @@ import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.Streamin
 import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionEndpoint;
 import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionRole;
 import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionStatus;
+import com.ubisoft.streaming.testtask.p2pmediator.error.exception.MediatorServiceException;
 import com.ubisoft.streaming.testtask.p2pmediator.p2pmediatordb.tables.records.StreamingSessionEndpointRecord;
 import com.ubisoft.streaming.testtask.p2pmediator.p2pmediatordb.tables.records.StreamingSessionPeerRoleIndexRecord;
 import org.jooq.DSLContext;
@@ -68,7 +69,7 @@ public class JooqStreamingSessionDataService implements IStreamingSessionDataSer
         if (record != null) {
             return record.getPeerRole();
         }
-        throw new RuntimeException(
+        throw new MediatorServiceException(
                 String.format("Peer %s isn't a member of streaming session '%d'", peerId, streamingSessionId));
     }
 
@@ -93,14 +94,14 @@ public class JooqStreamingSessionDataService implements IStreamingSessionDataSer
         if (query.execute() != 0) {
             return newStatus;
         }
-        throw new RuntimeException("Streaming session (id: '%d') status wasn't updated");
+        throw new MediatorServiceException("Streaming session (id: '%d') status wasn't updated");
     }
 
     @Override
     public List<StreamingSessionEndpoint> getStreamingSessionEndpoints(final Integer streamingSessionId,
                                                                        final List<StreamingSessionStatus> statuses) {
         return dslContext.select(
-                STREAMING_SESSION_ENDPOINT.ID,
+                STREAMING_SESSION_ENDPOINT.STREAMING_SESSION_ID,
                 STREAMING_SESSION_ENDPOINT.HOST,
                 STREAMING_SESSION_ENDPOINT.PORT
         )
@@ -122,6 +123,19 @@ public class JooqStreamingSessionDataService implements IStreamingSessionDataSer
                 .collect(Collectors.toList());
         dslContext.batchInsert(recordsToInsert).execute();
         return streamSessionEndpoints;
+    }
+
+    @Override
+    public StreamingSessionRole indexPeerStreamingSessionRole(final Peer peer,
+                                                              final Integer streamingSessionId,
+                                                              final StreamingSessionRole role) {
+        return dslContext.insertInto(STREAMING_SESSION_PEER_ROLE_INDEX)
+                .set(STREAMING_SESSION_PEER_ROLE_INDEX.PEER_ID, peer.getId())
+                .set(STREAMING_SESSION_PEER_ROLE_INDEX.STREAMING_SESSION_ID, streamingSessionId)
+                .set(STREAMING_SESSION_PEER_ROLE_INDEX.PEER_ROLE, role)
+                .returning(STREAMING_SESSION_PEER_ROLE_INDEX.PEER_ROLE)
+                .fetchOne().getPeerRole();
+
     }
 
 
