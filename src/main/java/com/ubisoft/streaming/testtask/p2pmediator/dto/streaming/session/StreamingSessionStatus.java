@@ -7,8 +7,9 @@ import java.util.stream.Stream;
 
 public enum StreamingSessionStatus {
     NEW(1, "new"),
-    ACTIVE(2, "active"),
-    FINISHED(3, "finished");
+    READY(2, "ready"),
+    ACTIVE(3, "active"),
+    FINISHED(4, "finished");
 
     Integer id;
     String value;
