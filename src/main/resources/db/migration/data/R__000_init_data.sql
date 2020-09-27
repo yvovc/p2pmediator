@@ -2,6 +2,7 @@ SET SEARCH_PATH TO p2pmediatordb;
 
 INSERT INTO streaming_session_status(value) VALUES
     ('new'),
+    ('ready'),
     ('active'),
     ('finished');
 
