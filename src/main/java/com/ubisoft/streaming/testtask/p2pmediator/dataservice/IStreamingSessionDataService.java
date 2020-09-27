@@ -31,4 +31,8 @@ public interface IStreamingSessionDataService {
 
     List<StreamingSessionEndpoint> addStreamingSessionEndpoints(final Integer streamingSessionId,
                                                                 final List<StreamingSessionEndpoint> streamSessionEndpoints);
+
+    StreamingSessionRole indexPeerStreamingSessionRole(final Peer peer,
+                                                       final Integer streamingSessionId,
+                                                       final StreamingSessionRole role);
 }
