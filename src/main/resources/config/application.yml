@@ -5,6 +5,9 @@ services:
   streaming-session:
     data-service:
       type: JooqDSL
+  view-request:
+    data-service:
+      type: JooqDSL
 db:
   embedded:
     postgres:
