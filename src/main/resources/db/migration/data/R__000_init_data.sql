@@ -11,6 +11,10 @@ INSERT INTO view_request_status(value) VALUES
     ('ready'),
     ('completed');
 
+    INSERT INTO peer_role(value) VALUES
+    ('streamer'),
+    ('viewer');
+
 INSERT INTO video_game(name, description) VALUES
     ('Need For Speed MW', 'Some Arcade racing'),
     ('CS:GO', 'Cyberdisciplined Shooter');
