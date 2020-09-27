@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class StreamingSession {
     public final static String VIDEO_GAME_NAME_FIELD_NAME = "videoGameName";
-    public final static String STREAMING_SESSION_STATUS_FIELD_NAME = "videoGameName";
+    public final static String STREAMING_SESSION_STATUS_FIELD_NAME = "streamingSessionStatus";
 
     private Integer id;
     private UUID hostId;
