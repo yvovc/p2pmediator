@@ -11,10 +11,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller exposing view requests related API to peers.
+ *
+ * @author yvovc
+ * @since 2020/27/09
+ */
 @RestController
 @RequestMapping("/view-request")
 public class ViewRequestController {
 
+    /**
+     * View requests service layer class.
+     */
     private final ViewRequestService viewRequestService;
 
     @Autowired
@@ -22,31 +31,63 @@ public class ViewRequestController {
         this.viewRequestService = viewRequestService;
     }
 
+    /**
+     * Creates view requests related to the specified by ID streaming session.
+     *
+     * @param peer               active peer
+     * @param streamingSessionId streaming session ID
+     * @return created {@link ViewRequest}
+     */
     @PostMapping
-    public void createViewRequest(@AuthenticationPrincipal Peer peer,
-                                  @RequestParam Integer streamingSessionId) {
+    public ViewRequest createViewRequest(@AuthenticationPrincipal Peer peer,
+                                         @RequestParam Integer streamingSessionId) {
         final ViewRequest viewRequest = new ViewRequest()
                 .setStreamingSessionId(streamingSessionId)
                 .setViewerId(peer.getId());
-        viewRequestService.createViewRequest(peer, viewRequest);
+        return viewRequestService.createViewRequest(peer, viewRequest);
     }
 
-    @PutMapping
-    public void updateViewRequest(@AuthenticationPrincipal Peer peer,
-                                  @RequestBody ViewRequest viewRequest) {
-        viewRequestService.updateViewRequest(peer, viewRequest);
+    /**
+     * Updates view request's status.
+     *
+     * @param peer              active peer
+     * @param viewRequestStatus new view request status
+     * @return new {@link ViewRequestStatus}
+     */
+    @PutMapping("/{viewRequestId}/status")
+    public ViewRequestStatus updateViewRequestStatus(@AuthenticationPrincipal Peer peer,
+                                                     @PathVariable final Integer viewRequestId,
+                                                     @RequestParam ViewRequestStatus viewRequestStatus) {
+        return viewRequestService.updateViewRequestStatus(peer, viewRequestId, viewRequestStatus);
     }
 
-    @PostMapping("/{viewRequestId}/endpoints")
-    public void addViewRequestEndpoints(@AuthenticationPrincipal Peer peer,
-                                        @RequestBody List<ViewRequestEndpoint> viewRequestEndpoints) {
-        viewRequestService.addViewRequestEndpoints(viewRequestEndpoints);
+    /**
+     * Adds viewer endpoints to the specified view request.
+     *
+     * @param peer                 active peer
+     * @param viewRequestId        view request ID
+     * @param viewRequestEndpoints endpoints to use to process view request
+     * @return created {@link ViewRequestEndpoint}s
+     */
+    @PostMapping("/{viewRequestId}/endpoint")
+    public List<ViewRequestEndpoint> addViewRequestEndpoints(@AuthenticationPrincipal Peer peer,
+                                                             @PathVariable final Integer viewRequestId,
+                                                             @RequestBody List<ViewRequestEndpoint> viewRequestEndpoints) {
+        return viewRequestService.addViewRequestEndpoints(peer, viewRequestId, viewRequestEndpoints);
     }
 
+    /**
+     * Gets all the endpoints of the view requests that are in the specified status.
+     *
+     * @param peer                active peer
+     * @param viewRequestStatuses view request statuses to fetch endpoints of
+     * @return fetched {@link ViewRequestEndpoint}s
+     */
     @GetMapping("/endpoint")
     public List<ViewRequestEndpoint> getViewRequestsEndpoints(@AuthenticationPrincipal final Peer peer,
+                                                              @RequestParam final Integer streamingSessionId,
                                                               @RequestParam final List<ViewRequestStatus> viewRequestStatuses) {
-        return viewRequestService.getViewRequestsEndpoints(peer, viewRequestStatuses);
+        return viewRequestService.getViewRequestsEndpoints(peer, streamingSessionId, viewRequestStatuses);
     }
 
 }
