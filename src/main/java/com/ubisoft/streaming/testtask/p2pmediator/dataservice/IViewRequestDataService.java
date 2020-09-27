@@ -1,16 +1,25 @@
 package com.ubisoft.streaming.testtask.p2pmediator.dataservice;
 
-import com.ubisoft.streaming.testtask.p2pmediator.auth.Peer;
-import com.ubisoft.streaming.testtask.p2pmediator.dto.VideoGame;
-import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSession;
-import com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionStatus;
 import com.ubisoft.streaming.testtask.p2pmediator.dto.view.request.ViewRequest;
+import com.ubisoft.streaming.testtask.p2pmediator.dto.view.request.ViewRequestEndpoint;
+import com.ubisoft.streaming.testtask.p2pmediator.dto.view.request.ViewRequestStatus;
 
 import java.util.List;
 
 public interface IViewRequestDataService {
-    void createViewRequest(final Peer peer,
-                           final ViewRequest viewRequest);
+    ViewRequest createViewRequest(final ViewRequest viewRequest);
 
-    List<StreamingSession> updateViewRequest(final List<StreamingSessionStatus> statuses);
+    ViewRequestStatus updateViewRequestStatus(final Integer viewRequestId,
+                                              final ViewRequestStatus newStatus);
+
+    ViewRequest getViewRequest(final Integer viewRequestId);
+
+    List<ViewRequestEndpoint> getViewRequestEndpoints(final Integer viewRequestId,
+                                                      final List<ViewRequestStatus> viewRequestStatuses);
+
+    List<ViewRequestEndpoint> getViewRequestsEndpoints(final Integer streamingSessionId,
+                                                       final List<ViewRequestStatus> viewRequestStatuses);
+
+    List<ViewRequestEndpoint> addViewRequestEndpoints(final Integer viewRequestId,
+                                                      final List<ViewRequestEndpoint> viewRequestEndpoints);
 }
