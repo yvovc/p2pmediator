@@ -48,8 +48,12 @@ Abstract interfaces were introduced in order to support different data sources:
 Currently application supports only one type of data source - JOOQ-powered DAL components backed by SQL DB (Embedded PostgreSQL).
 To initialize different implementations of DAL components factory components are used that accept config values to initialize concrete data services.
 To communicate with DB application uses JOOQ - lightweight ORM framework.
+
+
 3) Security
 Peers need to pass authentication to the server in order to be identified as legal system agent and stream/view content and get another peers locations. Currently BASIC auth is used that should be performed via HTTPS connection on production envs.
+
+
 4) **Peers and server interaction description** (example with 2 peer - viewer and streamer - communicating with the server and with each other):
 Let's call peers just Streamer and Viewer
 1. Every peer performs standard initialization protocol (obtaining public IP address and port from STUN server, then authenticating to the P2PMediator using username and password)
