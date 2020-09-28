@@ -13,6 +13,12 @@ import org.springframework.stereotype.Service;
 
 import static com.ubisoft.streaming.testtask.p2pmediator.p2pmediatordb.Tables.PEER;
 
+/**
+ * User details service that fetches peers data from DB and uses it during authentication.
+ *
+ * @author yvovc
+ * @since 2020/26/09
+ */
 @Service
 public class DBPeerUserDetailsService implements UserDetailsService {
 

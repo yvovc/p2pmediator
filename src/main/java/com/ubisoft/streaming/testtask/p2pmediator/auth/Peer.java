@@ -6,6 +6,12 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 import java.util.UUID;
 
+/**
+ * Class representing peer, used during auth and through app layers.
+ *
+ * @author yvovc
+ * @since 2020/26/09
+ */
 public class Peer extends User {
     private UUID id;
 

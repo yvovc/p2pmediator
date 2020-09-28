@@ -10,6 +10,13 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Map;
 
+/**
+ * Factory component that produces corresponded {@link IStreamingSessionDataService} implementation according
+ * to some value provided by env config.
+ *
+ * @author yvovc
+ * @since 2020/26/09
+ */
 @Component
 public class StreamingSessionDataServiceFactory {
     private static Map<String, IStreamingSessionDataService> STREAMING_SESSION_TYPE_DATA_SERVICE_MAP;
@@ -19,7 +26,8 @@ public class StreamingSessionDataServiceFactory {
     @PostConstruct
     public void init() {
         STREAMING_SESSION_TYPE_DATA_SERVICE_MAP = ImmutableMap.<String, IStreamingSessionDataService>builder()
-                .put("JooqDSL", new JooqStreamingSessionDataService(dslContext)).build();
+                .put(MediatorDataSourceType.JOOQ_DSL.getValue(), new JooqStreamingSessionDataService(dslContext))
+                .build();
     }
 
     @Autowired

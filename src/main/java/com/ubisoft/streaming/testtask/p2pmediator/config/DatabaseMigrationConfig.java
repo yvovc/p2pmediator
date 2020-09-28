@@ -7,6 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+/**
+ * Database migration config class.
+ *
+ * @author yvovc
+ * @since 2020/26/09
+ */
 @Configuration
 public class DatabaseMigrationConfig {
     private final static String P2P_MEDIATOR_DB_SCHEMA_NAME = "p2pmediatordb";

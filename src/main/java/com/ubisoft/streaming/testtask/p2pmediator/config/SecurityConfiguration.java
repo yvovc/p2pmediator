@@ -13,6 +13,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Security configuration class, contains authentication and authorization customizations.
+ *
+ * @author yvovc
+ * @since 2020/26/09
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -46,7 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic()
                 .and()
-                .authorizeRequests().antMatchers("/streaming-session/**").hasRole("PEER")
+                .authorizeRequests()
+                .antMatchers("/streaming-session/**", "/view-request/**").hasRole("PEER")
                 .and()
                 .csrf().disable();
     }

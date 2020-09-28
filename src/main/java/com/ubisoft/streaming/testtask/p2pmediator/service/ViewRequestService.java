@@ -57,6 +57,13 @@ public class ViewRequestService {
         return viewRequestDataService.createViewRequest(viewRequest);
     }
 
+    /**
+     * Updates view request's status.
+     *
+     * @param peer              active peer
+     * @param viewRequestStatus new view request status
+     * @return new {@link ViewRequestStatus}
+     */
     public ViewRequestStatus updateViewRequestStatus(final Peer peer,
                                                      final Integer viewRequestId,
                                                      final ViewRequestStatus viewRequestStatus) {
@@ -64,6 +71,14 @@ public class ViewRequestService {
         return viewRequestDataService.updateViewRequestStatus(viewRequestId, viewRequestStatus);
     }
 
+    /**
+     * Adds viewer endpoints to the specified view request.
+     *
+     * @param peer                 active peer
+     * @param viewRequestId        view request ID
+     * @param viewRequestEndpoints endpoints to use to process view request
+     * @return created {@link ViewRequestEndpoint}s
+     */
     public List<ViewRequestEndpoint> addViewRequestEndpoints(final Peer peer,
                                                              final Integer viewRequestId,
                                                              final List<ViewRequestEndpoint> viewRequestEndpoints) {
@@ -71,6 +86,13 @@ public class ViewRequestService {
         return viewRequestDataService.addViewRequestEndpoints(viewRequestId, viewRequestEndpoints);
     }
 
+    /**
+     * Gets all the endpoints of the view requests that are in the specified status.
+     *
+     * @param peer                active peer
+     * @param viewRequestStatuses view request statuses to fetch endpoints of
+     * @return fetched {@link ViewRequestEndpoint}s
+     */
     public List<ViewRequestEndpoint> getViewRequestsEndpoints(final Peer peer,
                                                               final Integer streamingSessionId,
                                                               final List<ViewRequestStatus> viewRequestStatuses) {

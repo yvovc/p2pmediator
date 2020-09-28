@@ -98,17 +98,14 @@ public class JooqStreamingSessionDataService implements IStreamingSessionDataSer
     }
 
     @Override
-    public List<StreamingSessionEndpoint> getStreamingSessionEndpoints(final Integer streamingSessionId,
-                                                                       final List<StreamingSessionStatus> statuses) {
+    public List<StreamingSessionEndpoint> getStreamingSessionEndpoints(final Integer streamingSessionId) {
         return dslContext.select(
                 STREAMING_SESSION_ENDPOINT.STREAMING_SESSION_ID,
                 STREAMING_SESSION_ENDPOINT.HOST,
                 STREAMING_SESSION_ENDPOINT.PORT
         )
-                .from(STREAMING_SESSION)
-                .join(STREAMING_SESSION_ENDPOINT)
-                .on(STREAMING_SESSION.ID.eq(STREAMING_SESSION_ENDPOINT.STREAMING_SESSION_ID))
-                .where(STREAMING_SESSION.STREAMING_SESSION_STATUS.in(statuses))
+                .from(STREAMING_SESSION_ENDPOINT)
+                .where(STREAMING_SESSION_ENDPOINT.STREAMING_SESSION_ID.eq(streamingSessionId))
                 .fetchInto(StreamingSessionEndpoint.class);
     }
 

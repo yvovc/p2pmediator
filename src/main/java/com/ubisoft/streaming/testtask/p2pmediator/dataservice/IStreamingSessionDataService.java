@@ -26,8 +26,7 @@ public interface IStreamingSessionDataService {
     StreamingSessionStatus updateStreamingSessionStatus(final Integer streamingSessionId,
                                                         final StreamingSessionStatus newStatus);
 
-    List<StreamingSessionEndpoint> getStreamingSessionEndpoints(final Integer streamingSessionId,
-                                                                final List<StreamingSessionStatus> statuses);
+    List<StreamingSessionEndpoint> getStreamingSessionEndpoints(final Integer streamingSessionId);
 
     List<StreamingSessionEndpoint> addStreamingSessionEndpoints(final Integer streamingSessionId,
                                                                 final List<StreamingSessionEndpoint> streamSessionEndpoints);

@@ -15,6 +15,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+
+/**
+ * Service layer class performing operations related to streaming sessions.
+ *
+ * @author yvovc
+ * @since 2020/27/09
+ */
 @Service
 public class StreamingSessionService {
 
@@ -31,6 +38,13 @@ public class StreamingSessionService {
         this.streamingSessionFieldAccessValidator = streamingSessionFieldAccessValidator;
     }
 
+    /**
+     * Creates streaming session of the specified video game.
+     *
+     * @param peer              active peer
+     * @param videoGameToStream game to stream
+     * @return created {@link StreamingSession}
+     */
     public StreamingSession createStreamingSession(final Peer peer,
                                                    final VideoGame videoGameToStream) {
         validateStreamingSessionCreation(peer, videoGameToStream);
@@ -39,11 +53,26 @@ public class StreamingSessionService {
         return streamingSession;
     }
 
+    /**
+     * Gets streaming sessions with specified statuses.
+     *
+     * @param peer     active peer
+     * @param statuses statuses of streaming sessions to fetch
+     * @return streaming sessions with specified statuses
+     */
     public List<StreamingSession> getStreamingSessions(final Peer peer,
                                                        final List<StreamingSessionStatus> statuses) {
         return streamingSessionDataService.getStreamingSessions(statuses);
     }
 
+    /**
+     * Updates streaming session's status.
+     *
+     * @param peer               active peer
+     * @param streamingSessionId streaming session ID
+     * @param newStatus          new status
+     * @return updated streaming session
+     */
     public StreamingSessionStatus updateStreamingSessionStatus(final Peer peer,
                                                                final Integer streamingSessionId,
                                                                final StreamingSessionStatus newStatus) {
@@ -52,12 +81,20 @@ public class StreamingSessionService {
         return streamingSessionDataService.updateStreamingSessionStatus(streamingSessionId, newStatus);
     }
 
+    /**
+     * Adds
+     *
+     * @param peer                      active peer
+     * @param streamingSessionId        streaming session ID
+     * @param streamingSessionEndpoints streaming session endpoints to add
+     * @return added {@link StreamingSessionEndpoint}s
+     */
     public List<StreamingSessionEndpoint> addStreamingSessionEndpoints(final Peer peer,
                                                                        final Integer streamingSessionId,
-                                                                       final List<StreamingSessionEndpoint> streamSessionEndpoints) {
+                                                                       final List<StreamingSessionEndpoint> streamingSessionEndpoints) {
         validateStreamingSessionEndpointsCreation(peer, streamingSessionId);
         final List<StreamingSessionEndpoint> endpoints = streamingSessionDataService.addStreamingSessionEndpoints(
-                streamingSessionId, streamSessionEndpoints);
+                streamingSessionId, streamingSessionEndpoints);
         if (streamingSessionDataService.getStreamingSession(streamingSessionId)
                 .getStreamingSessionStatus().equals(StreamingSessionStatus.NEW)) {
             streamingSessionDataService.updateStreamingSessionStatus(streamingSessionId, StreamingSessionStatus.READY);
@@ -65,11 +102,17 @@ public class StreamingSessionService {
         return endpoints;
     }
 
+    /**
+     * Gets streaming session's endpoints.
+     *
+     * @param peer               active peer
+     * @param streamingSessionId streaming session ID
+     * @return list of {@link StreamingSessionEndpoint}s
+     */
     public List<StreamingSessionEndpoint> getStreamingSessionEndpoints(final Peer peer,
-                                                                       final Integer streamingSessionId,
-                                                                       final List<StreamingSessionStatus> statuses) {
+                                                                       final Integer streamingSessionId) {
         validateStreamingSessionEndpointsFetch(peer, streamingSessionId);
-        return streamingSessionDataService.getStreamingSessionEndpoints(streamingSessionId, statuses);
+        return streamingSessionDataService.getStreamingSessionEndpoints(streamingSessionId);
     }
 
     private void validateStreamingSessionCreation(final Peer peer,

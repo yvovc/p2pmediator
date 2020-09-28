@@ -1,7 +1,10 @@
 package com.ubisoft.streaming.testtask.p2pmediator.error.exception;
 
 /**
- * Local exception to use be used by excepion handler.
+ * Local exception to be used by exception handler.
+ *
+ * @author yvovc
+ * @since 2020/27/09
  */
 public class MediatorServiceException extends RuntimeException {
     public MediatorServiceException() {

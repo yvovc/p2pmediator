@@ -4,7 +4,7 @@ package com.ubisoft.streaming.testtask.p2pmediator.error;
  * Service response error object.
  *
  * @author yvovc
- * @since
+ * @since 2020/27/09
  */
 public class ServiceResponseError {
     private final String errorMessage;

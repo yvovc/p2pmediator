@@ -15,9 +15,15 @@ import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import javax.sql.DataSource;
 import java.io.File;
 
+/**
+ * Class that configures data source components and JOOQ objects.
+ *
+ * @author yvovc
+ * @since 2020/26/09
+ */
 @Configuration
 @ComponentScan
-public class DataSourceConfiguration { //TODO check throwing exc
+public class DataSourceConfiguration {
     @Value("${db.embedded.postgres.directory}")
     public String embeddedPostgresDataDirectory;
 

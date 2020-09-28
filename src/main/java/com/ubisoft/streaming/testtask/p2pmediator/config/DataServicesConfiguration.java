@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Config class that initializes data services implementations according to provided env configuration.
+ *
+ * @author yvovc
+ * @since 2020/26/09
+ */
 @Configuration
 public class DataServicesConfiguration {
     @Value("${services.streaming-session.data-service.type}")

@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
+ * REST exception handling component.
+ *
  * @author yvovc
+ * @since 2020/27/09
  */
 @RestControllerAdvice
 public class RestExceptionsHandler {
