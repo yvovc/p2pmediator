@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.springframework.session:spring-session-core'
     implementation 'com.opentable.components:otj-pg-embedded:0.13.1'
+    implementation 'com.google.guava:guava:11.0.2'
     jooqRuntime 'org.jooq:jooq-meta-extensions'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -61,6 +62,26 @@ jooq {
                     property {
                         key = 'defaultNameCase'
                         value = 'QUOTED'
+                    }
+                }
+                forcedTypes {
+                    forcedType {
+                        userType = "com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionStatus"
+                        binding = "com.ubisoft.streaming.testtask.p2pmediator.dataservice.implementation.bind.StreamingSessionStatusConverter"
+                        expression = ".*streaming_session_status"
+                        types = "integer"
+                    }
+                    forcedType {
+                        userType = "com.ubisoft.streaming.testtask.p2pmediator.dto.view.request.ViewRequestStatus"
+                        binding = "com.ubisoft.streaming.testtask.p2pmediator.dataservice.implementation.bind.ViewRequestStatusConverter"
+                        expression = ".*view_request_status"
+                        types = "integer"
+                    }
+                    forcedType {
+                        userType = "com.ubisoft.streaming.testtask.p2pmediator.dto.streaming.session.StreamingSessionRole"
+                        binding = "com.ubisoft.streaming.testtask.p2pmediator.dataservice.implementation.bind.StreamingSessionPeerRoleConverter"
+                        expression = ".*peer_role"
+                        types = "integer"
                     }
                 }
             }

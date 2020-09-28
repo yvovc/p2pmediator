@@ -1,3 +1,18 @@
 spring:
   flyway:
     enabled: false
+services:
+  streaming-session:
+    data-service:
+      type: JooqDSL
+  view-request:
+    data-service:
+      type: JooqDSL
+db:
+  embedded:
+    postgres:
+      directory: /Users/yvovc/Downloads/p2pmediator/pgwd
+      port: 65083
+logging:
+  level:
+    org.springframework.security: DEBUG
