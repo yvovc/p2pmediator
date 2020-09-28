@@ -56,6 +56,8 @@ Peers need to pass authentication to the server in order to be identified as leg
 
 4) **Peers and server interaction description** (example with 2 peer - viewer and streamer - communicating with the server and with each other):
 Let's call peers just Streamer and Viewer
+
+
 1. Every peer performs standard initialization protocol (obtaining public IP address and port from STUN server, then authenticating to the P2PMediator using username and password).
 2. Streamer pushes to the server streaming session containing information about desired game to stream (streaming session's status - NEW).
 3. Streamer pushes to the server it's endpoint details (public host:port), after that streaming session moves to READY state which means it's eligible to be visible in the viewer list.
